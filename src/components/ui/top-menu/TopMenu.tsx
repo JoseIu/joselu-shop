@@ -1,8 +1,12 @@
+'use client';
+import { useUIStore } from '@/store';
 import Link from 'next/link';
 import { IoCartOutline, IoMenuOutline, IoSearchOutline } from 'react-icons/io5';
 import { Logo } from '../logo/Logo';
 
 export const TopMenu = () => {
+  const openSideMenu = useUIStore((state) => state.openSideMenu);
+
   return (
     <header className="wrapper p-4 flex items-center justify-between border-b border-border-color">
       <Link href="/">
@@ -51,7 +55,7 @@ export const TopMenu = () => {
           </Link>
         </div>
 
-        <button className="md:hidden pointer-events-none">
+        <button className="" onClick={openSideMenu}>
           <IoMenuOutline className="w-6 h-6" aria-label="menu icon" />
         </button>
       </div>
