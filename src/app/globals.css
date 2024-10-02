@@ -21,6 +21,48 @@
   margin-left: auto;
   margin-right: auto;
 }
+img {
+  width: 100%;
+  max-width: 100%;
+}
+
+.clothes {
+  position: relative;
+  z-index: 1;
+  padding: 0 1rem;
+  color: var(--light-gray);
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: var(--pure-black);
+    transform: rotate(-2grad);
+  }
+}
+.style {
+  position: relative;
+  padding: 0 1rem;
+  color: var(--pure-black);
+  z-index: 1;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: var(--golden-yellow);
+    transform: rotate(-2grad);
+  }
+}
+.home-title {
+  font-size: clamp(1.5rem, 5vw, 4.5rem);
+}
 
 html body {
   min-height: 100vh;
