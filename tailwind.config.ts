@@ -16,6 +16,7 @@ const config: Config = {
         'neutral-gray': '#F0F0F0',
         'pure-black': '#000000',
         'golden-yellow': '#EBD96B',
+        'border-color': '#0000001A',
       },
     },
   },
