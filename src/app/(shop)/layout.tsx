@@ -1,9 +1,17 @@
+import { TopMenu } from '@/components';
+
 type Props = {
   children: React.ReactNode;
 };
 
 const ShopLayout = ({ children }: Props) => {
-  return <main>{children}</main>;
+  return (
+    <main>
+      <TopMenu />
+
+      {children}
+    </main>
+  );
 };
 
 export default ShopLayout;
