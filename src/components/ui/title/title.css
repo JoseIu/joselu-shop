@@ -1,0 +1,6 @@
+.title {
+  font-size: clamp(1.5em, 5vw, 2.3em);
+}
+.sub-title {
+  font-size: clamp(1em, 5vw, 1.3em);
+}
