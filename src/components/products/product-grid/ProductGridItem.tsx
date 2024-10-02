@@ -13,7 +13,7 @@ export const ProductGridItem = ({ product }: Props) => {
       <Link href={`/product/${product.slug}`}>
         <img
           className="aspect-square rounded-lg"
-          src={`./imgs/products/${displayImage}`}
+          src={`/imgs/products/${displayImage}`}
           alt={product.title}
           loading="lazy"
           onMouseEnter={() => setDisplayImage(product.images[1])}

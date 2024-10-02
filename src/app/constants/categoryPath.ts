@@ -1,5 +1,8 @@
-export const categoryPath = {
+import { Category } from '@/interfaces';
+
+export const categoryPath: Record<Category, string> = {
   men: 'men',
   women: 'women',
-  kids: 'kids',
+  kid: 'kid',
+  unisex: 'unisex',
 };
