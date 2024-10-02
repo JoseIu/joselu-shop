@@ -32,7 +32,7 @@ export const TopMenu = () => {
           </li>
           <li>
             <Link
-              href="/category/kids"
+              href="/category/kid"
               className="px-4 py-1 rounded-md font-medium hover:bg-pure-black hover:text-neutral-gray transition-colors duration-200 ease-in"
             >
               Kids
