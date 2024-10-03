@@ -31,7 +31,13 @@ const ProductPage = ({ params }: Props) => {
           <span className="font-black text-5xl">${product.price}</span>
         </div>
         <SizeSelector selectedSize={product.sizes[0]} availableSizes={product.sizes} />
-        <QuantitySelector />
+
+        <div className="flex gap-8">
+          <QuantitySelector />
+          <button className="bg-pure-black text-neutral-gray px-2 py-4 rounded-full flex-grow">
+            Add to cart
+          </button>
+        </div>
 
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-xl">Description</h3>
