@@ -1,3 +1,7 @@
+export * from './product/quantity-selector/QuantitySelector';
+export * from './product/size-selector/SizeSelector';
+export * from './product/slideShow/PorductMobileSlideShow';
+export * from './product/slideShow/PorductSlideShow';
 export * from './products/product-grid/ProductGrid';
 export * from './ui/logo/Logo';
 export * from './ui/not-found/NotFound';
