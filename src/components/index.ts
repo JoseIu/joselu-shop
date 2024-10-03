@@ -8,3 +8,5 @@ export * from './ui/not-found/NotFound';
 export * from './ui/side-bar/SIdeBar';
 export * from './ui/title/Tittle';
 export * from './ui/top-menu/TopMenu';
+
+export * from './cart/cart-item/CartItem';

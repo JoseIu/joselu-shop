@@ -17,6 +17,7 @@ const config: Config = {
         'pure-black': '#000000',
         'golden-yellow': '#EBD96B',
         'border-color': '#0000001A',
+        'sumary-color': '#0000008A',
       },
     },
   },
