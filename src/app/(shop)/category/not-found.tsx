@@ -1,7 +1,7 @@
 import { NotFound } from '@/components';
 
-const NotFoundCategory = () => {
+const NotFoundPage = () => {
   return <NotFound />;
 };
 
-export default NotFoundCategory;
+export default NotFoundPage;
