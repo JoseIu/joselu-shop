@@ -40,7 +40,7 @@ const CartPage = () => {
           </div>
 
           <Link
-            href="/"
+            href="/checkout/address"
             className="w-full flex items-center justify-center gap-4 bg-pure-black py-2 px-4 text-neutral-50 rounded-full"
           >
             Go to Checkout
