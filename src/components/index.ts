@@ -10,3 +10,7 @@ export * from './ui/title/Tittle';
 export * from './ui/top-menu/TopMenu';
 
 export * from './cart/cart-item/CartItem';
+
+export * from './form/InputForm';
+
+export * from './checkout/OrderItem';
