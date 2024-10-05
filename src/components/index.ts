@@ -14,3 +14,9 @@ export * from './cart/cart-item/CartItem';
 export * from './form/InputForm';
 
 export * from './checkout/OrderItem';
+export * from './ui/footer/Footer';
+
+export * from './icons/GooglePayIcon';
+export * from './icons/MasterCardIcon';
+export * from './icons/PaypaylIcon';
+export * from './icons/VisaIcon';
