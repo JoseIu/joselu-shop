@@ -1,4 +1,4 @@
-import { SIdeBar, TopMenu } from '@/components';
+import { Footer, SIdeBar, TopMenu } from '@/components';
 
 type Props = {
   children: React.ReactNode;
@@ -6,12 +6,15 @@ type Props = {
 
 const ShopLayout = ({ children }: Props) => {
   return (
-    <main>
-      <TopMenu />
-      <SIdeBar />
+    <>
+      <main>
+        <TopMenu />
+        <SIdeBar />
 
-      {children}
-    </main>
+        {children}
+      </main>
+      <Footer />
+    </>
   );
 };
 
