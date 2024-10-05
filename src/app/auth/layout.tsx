@@ -3,12 +3,7 @@ type Props = {
 };
 
 const LoginLayout = ({ children }: Props) => {
-  return (
-    <main>
-      <h1>Hello Root Layout Shop</h1>
-      {children}
-    </main>
-  );
+  return <main>{children}</main>;
 };
 
 export default LoginLayout;
