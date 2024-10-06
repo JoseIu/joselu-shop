@@ -7,6 +7,10 @@
 .yarn/install-state.gz
 /public/imgs/products
 
+
+.env
+/postgres/
+
 # testing
 /coverage
 
