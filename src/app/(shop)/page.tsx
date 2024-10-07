@@ -1,9 +1,19 @@
-import { ProductGrid, Title } from '@/components';
+import { getPaginationProductsWithImages } from '@/actions';
+import { Pagination, ProductGrid, Title } from '@/components';
 import { titleFont } from '@/config/fonts';
-import { initialData } from '@/seed/seed';
-const products = initialData.products;
+import { redirect } from 'next/navigation';
 
-const Home = () => {
+type Props = {
+  searchParams: {
+    page?: string;
+  };
+};
+
+const Home = async ({ searchParams }: Props) => {
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const { products, totalPages } = await getPaginationProductsWithImages({ page });
+
+  if (!products.length) redirect('/');
   return (
     <>
       <section className="bg-neutral-gray px-4 pt-8">
@@ -24,13 +34,15 @@ const Home = () => {
             </p>
             <button className="w-60 px-6 py-2 bg-pure-black text-light-gray rounded-full">Shop Now</button>
           </div>
-          <img src="/home-image.png" alt="" className="max-w-[40rem]" />
+          <img src="/home-image.png" alt="home hero image" className="max-w-[40rem]" />
         </div>
       </section>
 
       <section className="wrapper px-4 pt-8">
         <Title title="Shop" subTitle="All products" />
         <ProductGrid products={products} />
+
+        <Pagination totalPages={totalPages} />
       </section>
     </>
   );
