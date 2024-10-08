@@ -1,14 +1,14 @@
 export const menuPaths = [
   {
-    path: '/category/men',
+    path: '/gender/men',
     title: 'Men',
   },
   {
-    path: '/category/women',
+    path: '/gender/women',
     title: 'Women',
   },
   {
-    path: '/category/kid',
+    path: '/gender/kid',
     title: 'Kids',
   },
 ];
