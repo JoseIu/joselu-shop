@@ -1,22 +1,44 @@
-import { PorductMobileSlideShow, PorductSlideShow, QuantitySelector, SizeSelector } from '@/components';
+export const revalidate = 604800; //7 dyas
+
+import { getProductBySlug } from '@/actions/product/getProductBySlug';
+import {
+  PorductMobileSlideShow,
+  PorductSlideShow,
+  QuantitySelector,
+  SizeSelector,
+  StockLabel,
+} from '@/components';
 import { titleFont } from '@/config/fonts';
-import { initialData } from '@/seed/seed';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 type Props = {
   params: { slug: string };
 };
 
-const ProductPage = ({ params }: Props) => {
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const { slug } = params;
+  const product = await getProductBySlug(slug);
+
+  return {
+    title: product?.title,
+    description: product?.description,
+    openGraph: {
+      images: [`/products/${product?.images[1]}`],
+    },
+  };
+};
+
+const ProductPage = async ({ params }: Props) => {
   const { slug } = params;
 
-  const product = initialData.products.find((product) => product.slug === slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
   return (
-    <section className="wrapper w-full pt-20  md:grid md:gap-8 md:grid-cols-2">
+    <section className="wrapper w-full pt-20 md:grid md:gap-8 md:grid-cols-2">
       {/* IMAGES */}
 
       <div className="w-full lg:w-[32rem]">
@@ -27,6 +49,8 @@ const ProductPage = ({ params }: Props) => {
       {/* INFO-CONENT */}
       <div className="flex px-4 flex-col gap-8">
         <div>
+          <StockLabel slug={slug} />
+
           <h2 className={`${titleFont.className} font-black text-3xl`}>{product.title}</h2>
           <span className="font-black text-5xl">${product.price}</span>
         </div>
