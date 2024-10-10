@@ -1,16 +1,11 @@
 export const revalidate = 604800; //7 dyas
 
 import { getProductBySlug } from '@/actions/product/getProductBySlug';
-import {
-  PorductMobileSlideShow,
-  PorductSlideShow,
-  QuantitySelector,
-  SizeSelector,
-  StockLabel,
-} from '@/components';
+import { PorductMobileSlideShow, PorductSlideShow, StockLabel } from '@/components';
 import { titleFont } from '@/config/fonts';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { AddToCard } from './ui/AddToCard';
 
 type Props = {
   params: { slug: string };
@@ -54,14 +49,7 @@ const ProductPage = async ({ params }: Props) => {
           <h2 className={`${titleFont.className} font-black text-3xl`}>{product.title}</h2>
           <span className="font-black text-5xl">${product.price}</span>
         </div>
-        <SizeSelector selectedSize={product.sizes[0]} availableSizes={product.sizes} />
-
-        <div className="flex gap-8">
-          <QuantitySelector />
-          <button className="bg-pure-black text-neutral-gray px-2 py-4 rounded-full flex-grow">
-            Add to cart
-          </button>
-        </div>
+        <AddToCard product={product} />
 
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-xl">Description</h3>

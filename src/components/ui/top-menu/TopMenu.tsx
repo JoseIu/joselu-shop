@@ -1,13 +1,20 @@
 'use client';
 import { menuPaths } from '@/app/constants/menuPath';
-import { useUIStore } from '@/store';
+import { useCartStore, useUIStore } from '@/store';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { IoCartOutline, IoMenuOutline, IoSearchOutline } from 'react-icons/io5';
 import { Logo } from '../logo/Logo';
 import { TopMenuItem } from './TopMenuItem';
 
 export const TopMenu = () => {
+  const [loaded, setLoaded] = useState(false);
+  const itemsInCart = useCartStore((state) => state.getTotalItem());
   const openSideMenu = useUIStore((state) => state.openSideMenu);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   return (
     <header className="wrapper p-6 flex items-center justify-between border-b border-border-color">
@@ -28,9 +35,11 @@ export const TopMenu = () => {
         </Link>
 
         <div className="relative">
-          <span className="absolute bottom-4 left-4  w-4 h-4 p-1 text-xs bg-pure-black text-neutral-gray rounded-full flex items-center justify-center">
-            3
-          </span>
+          {loaded && itemsInCart > 0 && (
+            <span className="absolute bottom-4 left-4  w-4 h-4 p-1 text-xs bg-pure-black text-neutral-gray rounded-full flex items-center justify-center">
+              {itemsInCart}
+            </span>
+          )}
           <Link href="/cart" aria-label="link to go cart">
             <IoCartOutline size={30} aria-label="cart icon" />
           </Link>
