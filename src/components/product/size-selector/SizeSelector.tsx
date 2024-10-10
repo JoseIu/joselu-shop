@@ -1,15 +1,14 @@
 'use client';
 import type { Size } from '@/interfaces';
 import clsx from 'clsx';
-import { useState } from 'react';
 
 type Props = {
   selectedSize: Size;
   availableSizes: Size[];
+  onChaneSize: (size: Size) => void;
 };
 
-export const SizeSelector = ({ availableSizes, selectedSize }: Props) => {
-  const [currentSize, setCurrentSize] = useState(selectedSize);
+export const SizeSelector = ({ availableSizes, selectedSize, onChaneSize }: Props) => {
   return (
     <div className="flex flex-col gap-2">
       <h3 className="font-semibold text-xl">Available sizes</h3>
@@ -17,12 +16,12 @@ export const SizeSelector = ({ availableSizes, selectedSize }: Props) => {
         {availableSizes.map((size) => (
           <span
             key={size}
-            onClick={() => setCurrentSize(size)}
+            onClick={() => onChaneSize(size)}
             className={clsx(
-              'p-2 bg-neutral-gray text-pure-black rounded-full w-16 text-center select-none',
+              'p-2 bg-neutral-gray text-pure-black rounded-full w-16 text-center select-none cursor-pointer',
 
               {
-                'bg-pure-black text-white': currentSize === size,
+                'bg-pure-black text-white': selectedSize === size,
               }
             )}
           >
