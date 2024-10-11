@@ -36,7 +36,7 @@ export const TopMenu = () => {
 
         <div className="relative">
           {loaded && itemsInCart > 0 && (
-            <span className="absolute bottom-4 left-4  w-4 h-4 p-1 text-xs bg-pure-black text-neutral-gray rounded-full flex items-center justify-center">
+            <span className="absolute bottom-4 left-4 w-4 h-4 p-1 text-xs bg-pure-black text-neutral-gray rounded-full flex items-center justify-center">
               {itemsInCart}
             </span>
           )}
