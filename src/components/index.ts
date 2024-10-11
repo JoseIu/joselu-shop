@@ -11,6 +11,7 @@ export * from './ui/logo/Logo';
 export * from './ui/not-found/NotFound';
 export * from './ui/pagination/Pagination';
 export * from './ui/side-bar/SIdeBar';
+export * from './ui/skeleton-cart-item/SkeletonCartItem';
 export * from './ui/spinner/Spinner';
 export * from './ui/title/Tittle';
 export * from './ui/top-menu/TopMenu';
