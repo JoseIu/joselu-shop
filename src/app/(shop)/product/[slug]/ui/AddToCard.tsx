@@ -1,5 +1,6 @@
 'use client';
 import { QuantitySelector, SizeSelector } from '@/components';
+import { useQuantitySelector } from '@/hooks/useQuantitySelector';
 import { CartProduct, Product, Size } from '@/interfaces';
 import { useCartStore } from '@/store';
 import { useState } from 'react';
@@ -11,11 +12,9 @@ type Props = {
 export const AddToCard = ({ product }: Props) => {
   const addProductToCart = useCartStore((state) => state.addProductToCart);
   const [currentSize, setCurrentSize] = useState<Size>(product.sizes[0]);
-  const [quantity, setQuantity] = useState(1);
+  const { quantity, incrementQuantity, decrementQuantity, resetQuantity } = useQuantitySelector(1);
 
   const onAddToCart = () => {
-    console.log({ currentSize, quantity });
-
     const cartProduct: CartProduct = {
       id: product.id,
       image: product.images[0],
@@ -29,7 +28,7 @@ export const AddToCard = ({ product }: Props) => {
     addProductToCart(cartProduct);
 
     setCurrentSize(product.sizes[0]);
-    setQuantity(1);
+    resetQuantity();
   };
 
   return (
@@ -39,8 +38,8 @@ export const AddToCard = ({ product }: Props) => {
       <div className="flex gap-8">
         <QuantitySelector
           quantity={quantity}
-          onDecrementeQuatity={setQuantity}
-          onIncrementeQuatity={setQuantity}
+          onDecrementeQuatity={decrementQuantity}
+          onIncrementeQuatity={incrementQuantity}
         />
         <button
           onClick={onAddToCart}
