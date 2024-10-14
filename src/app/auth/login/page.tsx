@@ -1,7 +1,7 @@
 import { Logo } from '@/components';
 import { titleFont } from '@/config/fonts';
 import Link from 'next/link';
-import { LogingForm } from './ui/LogingForm';
+import LoginForm from './ui/LogingForm';
 
 const LoginPage = () => {
   return (
@@ -18,7 +18,7 @@ const LoginPage = () => {
       </div>
       <div className="h-full flex flex-col gap-4 justify-center">
         <h1 className={`${titleFont.className} text-xl font-black`}>Login</h1>
-        <LogingForm />
+        <LoginForm />
         <span className="text-sumary-color font-medium">
           You can login with your registered accounth or quick login with yout Google account
         </span>
