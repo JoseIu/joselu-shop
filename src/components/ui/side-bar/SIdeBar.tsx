@@ -1,7 +1,9 @@
 'use client';
 
+import { logout } from '@/actions';
 import { useUIStore } from '@/store';
 import clsx from 'clsx';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import {
   IoCloseCircleOutline,
@@ -17,6 +19,9 @@ import {
 export const SIdeBar = () => {
   const isSideMnuOpen = useUIStore((state) => state.isSidebarOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
+
+  const { data: session } = useSession();
+  const isAuthenticated = !!session?.user;
   return (
     <div>
       {isSideMnuOpen && (
@@ -51,7 +56,8 @@ export const SIdeBar = () => {
           <ul className="pb-2 flex flex-col gap-4 border-b border-neutral-gray">
             <li>
               <Link
-                href="/"
+                href="/profile"
+                onClick={closeMenu}
                 className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
               >
                 <IoPersonOutline size={30} />
@@ -67,24 +73,32 @@ export const SIdeBar = () => {
                 Orderns
               </Link>
             </li>
-            <li>
-              <Link
-                href=""
-                className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
-              >
-                <IoLogInOutline size={30} />
-                Log In
-              </Link>
-            </li>
-            <li>
-              <Link
-                href=""
-                className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
-              >
-                <IoLogOutOutline size={30} />
-                Log Out
-              </Link>
-            </li>
+            {!isAuthenticated && (
+              <li>
+                <Link
+                  href="/auth/login"
+                  onClick={closeMenu}
+                  className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
+                >
+                  <IoLogInOutline size={30} />
+                  Log In
+                </Link>
+              </li>
+            )}
+            {isAuthenticated && (
+              <li>
+                <button
+                  onClick={() => {
+                    logout();
+                    closeMenu();
+                  }}
+                  className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
+                >
+                  <IoLogOutOutline size={30} />
+                  Log Out
+                </button>
+              </li>
+            )}
           </ul>
           <ul className="pb-2 flex flex-col gap-4 border-b border-neutral-gray">
             <li>
