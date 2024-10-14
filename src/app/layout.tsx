@@ -1,4 +1,5 @@
 import { inter } from '@/config/fonts';
+import { Provider } from '@/provider/Provider';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -17,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <Provider>
+        <body className={`${inter.className} antialiased`}>{children}</body>
+      </Provider>
     </html>
   );
 }

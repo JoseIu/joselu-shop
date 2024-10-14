@@ -1,6 +1,11 @@
+.black {
+  --uib-color: black;
+}
+.white {
+  --uib-color: white;
+}
 .container {
   --uib-size: 20px;
-  --uib-color: black;
   --uib-speed: 0.8s;
   --uib-bg-opacity: 0.1;
   height: var(--uib-size);

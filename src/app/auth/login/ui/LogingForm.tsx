@@ -1,30 +1,35 @@
 'use client';
 
 import { authenticate } from '@/actions';
-import { InputForm } from '@/components';
+import { InputForm, Spinner } from '@/components';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFormState } from 'react-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useFormState, useFormStatus } from 'react-dom';
+import { useForm } from 'react-hook-form';
+import { IoWarningOutline } from 'react-icons/io5';
 import { loginSchema, LoginSchema } from '../logingSchema';
 
-export const LogingForm = () => {
+const LoginForm = () => {
   const [state, dispatch] = useFormState(authenticate, undefined);
+  const router = useRouter();
+
+  //TODO: check if can i use hook form with action form
   const {
     register,
-    handleSubmit,
+
     formState: { errors },
   } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onhandleSubmit: SubmitHandler<LoginSchema> = (data) => {
-    const formData = new FormData();
-    formData.append('email', data.email);
-    formData.append('password', data.password);
-    dispatch(formData);
-  };
+  useEffect(() => {
+    if (state === 'Success') {
+      router.replace('/');
+    }
+  }, [state, router]);
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onhandleSubmit)}>
+    <form action={dispatch} className="flex flex-col gap-4">
       <InputForm
         type="email"
         label="Email"
@@ -42,9 +47,33 @@ export const LogingForm = () => {
         {...register('password')}
       />
 
-      <button type="submit" className="w-full px-4 py-2 rounded-md bg-pure-black text-neutral-gray">
-        Log in
-      </button>
+      {state === 'Invalid credentials' && (
+        <div className="py-1 px-4 flex items-center gap-2 bg-red-700 text-neutral-gray rounded-sm">
+          <IoWarningOutline size={20} />
+          <span className="uppercase font-semibold">Invalid credentials</span>
+        </div>
+      )}
+      <LoginButton />
     </form>
+  );
+};
+export default LoginForm;
+
+const LoginButton = () => {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      className="w-full px-4 py-2 rounded-md bg-pure-black text-neutral-gray flex items-center justify-center"
+    >
+      {pending ? (
+        <span className="flex items-center justify-center gap-1">
+          Logging in...
+          <Spinner white />
+        </span>
+      ) : (
+        'Login'
+      )}
+    </button>
   );
 };
