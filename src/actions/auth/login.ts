@@ -22,3 +22,19 @@ export const authenticate = async (prevState: string | undefined, formData: Form
     throw error;
   }
 };
+
+export const login = async (email: string, password: string) => {
+  try {
+    await signIn('credentials', { email, password });
+
+    return {
+      ok: true,
+      message: 'User logged in successfully',
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      message: 'Could not login user',
+    };
+  }
+};

@@ -22,6 +22,14 @@ export const SIdeBar = () => {
 
   const { data: session } = useSession();
   const isAuthenticated = !!session?.user;
+
+  const isAdmin = session?.user.role === 'ADMIN';
+  const refresh = () => {
+    window.location.replace('/');
+    closeMenu();
+    logout();
+  };
+
   return (
     <div>
       {isSideMnuOpen && (
@@ -54,25 +62,29 @@ export const SIdeBar = () => {
             <IoSearchOutline size={25} className="absolute top-3 left-4 text-neutral-gray" />
           </div>
           <ul className="pb-2 flex flex-col gap-4 border-b border-neutral-gray">
-            <li>
-              <Link
-                href="/profile"
-                onClick={closeMenu}
-                className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
-              >
-                <IoPersonOutline size={30} />
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/"
-                className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
-              >
-                <IoTicketOutline size={30} />
-                Orderns
-              </Link>
-            </li>
+            {isAuthenticated && (
+              <>
+                <li>
+                  <Link
+                    href="/profile"
+                    onClick={closeMenu}
+                    className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
+                  >
+                    <IoPersonOutline size={30} />
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
+                  >
+                    <IoTicketOutline size={30} />
+                    Orderns
+                  </Link>
+                </li>
+              </>
+            )}
             {!isAuthenticated && (
               <li>
                 <Link
@@ -86,49 +98,46 @@ export const SIdeBar = () => {
               </li>
             )}
             {isAuthenticated && (
-              <li>
-                <button
-                  onClick={() => {
-                    logout();
-                    closeMenu();
-                  }}
-                  className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
-                >
+              <li onClick={refresh}>
+                <button className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium">
                   <IoLogOutOutline size={30} />
                   Log Out
                 </button>
               </li>
             )}
           </ul>
-          <ul className="pb-2 flex flex-col gap-4 border-b border-neutral-gray">
-            <li>
-              <Link
-                href="/"
-                className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
-              >
-                <IoShirtOutline size={30} />
-                Products
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/"
-                className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
-              >
-                <IoTicketOutline size={30} />
-                Orderns
-              </Link>
-            </li>
-            <li>
-              <Link
-                href=""
-                className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
-              >
-                <IoPeopleOutline size={30} />
-                Users
-              </Link>
-            </li>
-          </ul>
+
+          {isAdmin && (
+            <ul className="pb-2 flex flex-col gap-4 border-b border-neutral-gray">
+              <li>
+                <Link
+                  href="/"
+                  className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
+                >
+                  <IoShirtOutline size={30} />
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/"
+                  className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
+                >
+                  <IoTicketOutline size={30} />
+                  Orderns
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href=""
+                  className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium"
+                >
+                  <IoPeopleOutline size={30} />
+                  Users
+                </Link>
+              </li>
+            </ul>
+          )}
         </nav>
       </aside>
     </div>
