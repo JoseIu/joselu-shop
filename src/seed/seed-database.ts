@@ -1,10 +1,12 @@
 import { Size } from '@prisma/client';
 import prisma from '../lib/prisma';
 import { initialData } from './seed';
+import { countries } from './seed-countries';
 
 const main = async () => {
   await Promise.all([
     await prisma.user.deleteMany(),
+    await prisma.country.deleteMany(),
     await prisma.productImage.deleteMany(),
     await prisma.product.deleteMany(),
     await prisma.category.deleteMany(),
@@ -12,6 +14,7 @@ const main = async () => {
 
   const { categories, products, users } = initialData;
 
+  // Users
   await prisma.user.createMany({
     data: users,
   });
@@ -53,6 +56,13 @@ const main = async () => {
       data: imagesData,
     });
   }
+
+  //Countries
+
+  await prisma.country.createMany({
+    data: countries,
+  });
+
   console.log('EJECUTADO CORRECTAMENTE');
 };
 
