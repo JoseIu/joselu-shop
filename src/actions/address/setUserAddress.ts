@@ -1,9 +1,9 @@
 'use server';
 
-import { Address } from '@/interfaces';
+import { AddressInterface } from '@/interfaces';
 import prisma from '@/lib/prisma';
 
-export const setUserAddress = async (address: Address, userId: string) => {
+export const setUserAddress = async (address: AddressInterface, userId: string) => {
   try {
     const newAddress = await createOrReplaceAddress(address, userId);
 
@@ -19,7 +19,7 @@ export const setUserAddress = async (address: Address, userId: string) => {
   }
 };
 
-const createOrReplaceAddress = async (address: Address, userId: string) => {
+const createOrReplaceAddress = async (address: AddressInterface, userId: string) => {
   try {
     const storedAddress = await prisma.userAddress.findUnique({
       where: { userId },
@@ -52,7 +52,6 @@ const createOrReplaceAddress = async (address: Address, userId: string) => {
 
     return updatedAddress;
   } catch (error) {
-    console.log(error);
     throw new Error('Cannot save address');
   }
 };

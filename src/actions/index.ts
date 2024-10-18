@@ -1,3 +1,5 @@
+export * from './address/deleteUserAddress';
+export * from './address/getUserAddress';
 export * from './address/setUserAddress';
 export * from './auth/login';
 export * from './auth/logout';
