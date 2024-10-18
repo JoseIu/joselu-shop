@@ -25,9 +25,9 @@ export const SIdeBar = () => {
 
   const isAdmin = session?.user.role === 'ADMIN';
   const refresh = () => {
+    logout();
     window.location.replace('/');
     closeMenu();
-    logout();
   };
 
   return (
@@ -98,7 +98,7 @@ export const SIdeBar = () => {
               </li>
             )}
             {isAuthenticated && (
-              <li onClick={refresh}>
+              <li onClick={() => refresh()}>
                 <button className="py-2 px-4 flex items-center gap-2 rounded-md hover:bg-neutral-gray transition-colors duration-300 font-medium">
                   <IoLogOutOutline size={30} />
                   Log Out

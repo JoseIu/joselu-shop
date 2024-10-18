@@ -1,8 +1,11 @@
 'use client';
+import { deleteUserAddress, setUserAddress } from '@/actions';
 import { InputForm } from '@/components';
-import { Country } from '@/interfaces/country.interface';
+import { AddressInterface } from '@/interfaces';
+import type { Country } from '@/interfaces/country.interface';
 import { useAddresStore } from '@/store';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IoMdArrowForward } from 'react-icons/io';
@@ -10,11 +13,13 @@ import { Address, AddressSchema } from './addresSchema';
 
 type Props = {
   countries: Country[];
+  userAddress?: Partial<AddressInterface>;
 };
 
-export const AddressForm = ({ countries }: Props) => {
+export const AddressForm = ({ countries, userAddress }: Props) => {
   const setAddress = useAddresStore((state) => state.setAddress);
   const address = useAddresStore((state) => state.address);
+  const { data: session } = useSession({ required: true });
   const {
     register,
     handleSubmit,
@@ -22,10 +27,23 @@ export const AddressForm = ({ countries }: Props) => {
     reset,
   } = useForm<Address>({
     resolver: zodResolver(AddressSchema),
+    defaultValues: {
+      ...userAddress,
+      rememberAddress: false,
+    },
   });
 
   const onhandleSubmit: SubmitHandler<Address> = (data) => {
     setAddress(data);
+
+    const { rememberAddress, ...restAddress } = data;
+
+    if (!rememberAddress) {
+      deleteUserAddress(session!.user.id);
+      return;
+    }
+
+    setUserAddress(restAddress, session!.user.id);
   };
 
   useEffect(() => {
@@ -102,7 +120,7 @@ export const AddressForm = ({ countries }: Props) => {
             defaultValue={countries[0].id}
           >
             {countries.map((country) => (
-              <option key={country.id} value={country.name}>
+              <option key={country.id} value={country.id}>
                 {country.name}
               </option>
             ))}
