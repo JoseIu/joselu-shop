@@ -6,6 +6,7 @@ import type { Country } from '@/interfaces/country.interface';
 import { useAddresStore } from '@/store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IoMdArrowForward } from 'react-icons/io';
@@ -20,6 +21,7 @@ export const AddressForm = ({ countries, userAddress }: Props) => {
   const setAddress = useAddresStore((state) => state.setAddress);
   const address = useAddresStore((state) => state.address);
   const { data: session } = useSession({ required: true });
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -34,16 +36,19 @@ export const AddressForm = ({ countries, userAddress }: Props) => {
   });
 
   const onhandleSubmit: SubmitHandler<Address> = (data) => {
-    setAddress(data);
-
     const { rememberAddress, ...restAddress } = data;
+    setAddress(restAddress);
 
     if (!rememberAddress) {
       deleteUserAddress(session!.user.id);
+      router.push('/checkout');
+
       return;
     }
 
     setUserAddress(restAddress, session!.user.id);
+
+    router.push('/checkout');
   };
 
   useEffect(() => {
