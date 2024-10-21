@@ -1,10 +1,10 @@
-import { Address } from '@/interfaces';
+import { AddressInterface } from '@/interfaces';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface State {
-  address: Address;
-  setAddress: (address: Address) => void;
+  address: AddressInterface;
+  setAddress: (address: AddressInterface) => void;
 }
 
 export const useAddresStore = create<State>()(
